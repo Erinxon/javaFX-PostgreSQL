@@ -16,7 +16,6 @@ public class ControlesBasicos {
     public void salirSistema() {
         int pregunta = JOptionPane.showConfirmDialog(null, "Realmente desea salir del programa?");
         
-        //Se cambio la variablen 'yes' (que no existia) por JOptionPane.YES_OPTION
         if (pregunta == JOptionPane.YES_OPTION) {
             Platform.exit();
         } 

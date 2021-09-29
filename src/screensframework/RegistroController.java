@@ -40,8 +40,6 @@ public class RegistroController implements Initializable, ControlledScreen {
                 "Hombre",
                 "Mujer"
                 );
-        //Se elimino la variable 'Options' y se reemplazo por 'Options' son parecida,
-        //pero con la unica deferiencie, que estaba mal escrita
         cbAddsex.setItems(options);
         
         // Escuchador para comprobar si pierdo el foco
@@ -57,7 +55,7 @@ public class RegistroController implements Initializable, ControlledScreen {
                                 
                                 String sql = "SELECT usuario FROM "
                                         + "usuarios WHERE "
-                                        + "usuario = '"+tfAddUser.getText()+"'";
+                                        + "usuarios = '"+tfAddUser.getText()+"'";
                                 
                                 ResultSet resultado = conexion.createStatement().executeQuery(sql);
                                 
@@ -127,9 +125,6 @@ public class RegistroController implements Initializable, ControlledScreen {
         //______________________________________________________________
         // PREPARAMOS LA SENTENCIA PARA INSERTAR LOS DATOS
         try {
-            //Se reemplasa la table 'usuario' por 'usuarios', ya 'usuario' no existe ne la base de datos
-            //tambien se cambia la columna 'email' por 'correo', ya que 'email' no existe
-            
             conexion = DBConnection.connect();
             String sql = "INSERT INTO usuarios "
                     + "(nombre, apellido, sexo, correo, usuario, pass) "
@@ -154,8 +149,7 @@ public class RegistroController implements Initializable, ControlledScreen {
             int n = estado.executeUpdate();
             
             if (n > 0) {
-                //Se reemplazo el siguiente mensage 'Fallo el registro' por 'El usuario se registro correctamente'
-                JOptionPane.showMessageDialog(null, "El usuario se registro correctamente");
+                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
             } 
             
             estado.close();

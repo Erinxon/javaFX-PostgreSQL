@@ -72,7 +72,6 @@ public class ProductoController implements Initializable, ControlledScreen {
             conexion = DBConnection.connect();
             
             // COMBOBOX DE CATEGORIA
-            //Se reemplaza 'category' por 'categoria', ya que no existe
             String slqCategoria = "SELECT idcategoria, nombre_categoria FROM categoria";
             ResultSet resultadoCategoria = conexion.createStatement().executeQuery(slqCategoria);
             while(resultadoCategoria.next()) {
@@ -166,10 +165,6 @@ public class ProductoController implements Initializable, ControlledScreen {
             while(rs.next()){
                 //Iterate Row
                 ObservableList<String> row = FXCollections.observableArrayList();
-                /*Error Error org.postgresql.util.PSQLException: The column index is out of range: 6, number of columns: 5.
-                Se soluciono quitando el +1, ya que solo hay 5 columna ne la base de datos y con ese mas +1 da error porque 
-                le estaria diciendo a la base de datos que hay 6, cuando en realidad hay 5
-                */
                 for(int i = 1 ; i <= rs.getMetaData().getColumnCount(); i++){
                     //Iterate Column
                     row.add(rs.getString(i));
@@ -271,11 +266,9 @@ public class ProductoController implements Initializable, ControlledScreen {
         
         try {
             conexion = DBConnection.connect();
-            //Se combio la columna 'product' por producto
             String sql = "INSERT INTO producto "
                     + " (nombre_producto, precio, idcategoria, idmarca) "
                     + " VALUES (?, ?, ?, ?)";
-            //Se importo la clase PreparedStatement, ya que no lo estaba
             PreparedStatement estado = conexion.prepareStatement(sql);
             estado.setString(1, tfNombreProducto.getText());
             estado.setInt(2, Integer.parseInt(tfPrecioProducto.getText()));
@@ -348,30 +341,28 @@ public class ProductoController implements Initializable, ControlledScreen {
 
                 PreparedStatement estado = conexion.prepareStatement(sql);
 
-                estado.executeUpdate();
-                
-                /* Se elimino el siguiente bloque de codigo y se movio a otro lugar, eliminando la variable n (que no existia)
-                if(n > 0)  {
+                int n = estado.executeUpdate();
+            
+                if (n > 0) {
                     tablaProducto.getColumns().clear();
                     tablaProducto.getItems().clear();
                     cargarDatosTabla();
                 }
-                */
-
+            
                 estado.close();
 
             } catch (SQLException e) {
                 System.out.println("Error " + e);
             }
         }
-              
-        if(confirmarEliminar > 0)  {
-            tablaProducto.getColumns().clear();
-            tablaProducto.getItems().clear();
-            cargarDatosTabla();
-        }
         
-                
+        //
+        if(confirmarEliminar > 0){
+             System.out.println("No eliminar");
+              tablaProducto.getColumns().clear();
+              tablaProducto.getItems().clear();
+              cargarDatosTabla();
+        }
     }
     
     @FXML
