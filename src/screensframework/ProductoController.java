@@ -139,7 +139,6 @@ public class ProductoController implements Initializable, ControlledScreen {
                 tablaProducto.getColumns().addAll(col);
                 // Asignamos un tamaño a ls columnnas
                 col.setMinWidth(100);
-                System.out.println("Column ["+i+"] ");
                 // Centrar los datos de la tabla
                 col.setCellFactory(new Callback<TableColumn<String,String>,TableCell<String,String>>(){
                     @Override
@@ -149,7 +148,6 @@ public class ProductoController implements Initializable, ControlledScreen {
                             protected void updateItem(Object t, boolean bln) {
                                 if(t != null){
                                     super.updateItem(t, bln);
-                                    System.out.println(t);
                                     setText(t.toString());
                                     setAlignment(Pos.CENTER); //Setting the Alignment
                                 }
@@ -169,7 +167,6 @@ public class ProductoController implements Initializable, ControlledScreen {
                     //Iterate Column
                     row.add(rs.getString(i));
                 }
-                System.out.println("Row [1] added "+row );
                 producto.addAll(row);
             }
             //FINALLY ADDED TO TableView
